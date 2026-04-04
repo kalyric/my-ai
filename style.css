@@ -1,29 +1,69 @@
-const chatArea = document.getElementById("chat-area");
-const userInput = document.getElementById("user-input");
-const sendBtn = document.getElementById("send-btn");
-
-function addMessage(text, sender) {
-    const msg = document.createElement("div");
-    msg.classList.add("message", sender);
-    msg.textContent = text;
-
-    chatArea.appendChild(msg);
-    chatArea.scrollTop = chatArea.scrollHeight;
+body {
+  margin: 0;
+  font-family: "Georgia", serif;
+  overflow-x: hidden;
 }
 
-sendBtn.addEventListener("click", () => {
-    const text = userInput.value;
+/* Background image EXACT */
+.bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/mnt/data/Welcome to Your AI Chatbot.png") no-repeat center center/cover;
+  z-index: -1;
+}
 
-    if (text.trim() !== "") {
-        addMessage(text, "user");
-        userInput.value = "";
+/* Sections */
+section {
+  text-align: center;
+  margin-top: 100px;
+}
 
-        setTimeout(() => {
-            addMessage("okay wait I hear you 😭 tell me more", "bot");
-        }, 500);
-    }
-});
+/* Inputs */
+input, select {
+  margin: 10px auto;
+  width: 250px;
+  border-radius: 20px;
+  text-align: center;
+}
 
-userInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendBtn.click();
-});
+/* Buttons */
+button {
+  border-radius: 20px;
+  background: #caa6e8;
+  border: none;
+  padding: 10px 20px;
+}
+
+/* Chat */
+#chatBox {
+  height: 400px;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.6);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Dashboard */
+.dashboard {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 250px;
+  height: 100%;
+  background: #eee;
+  padding: 20px;
+}
+
+/* Hidden */
+.hidden {
+  display: none;
+}
