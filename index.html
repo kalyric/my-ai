@@ -1,11 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Pico CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
 
-    <div id="chat-area"></div>
+<!-- NAV -->
+<nav class="container-fluid">
+  <ul>
+    <li><strong>AI Chat</strong></li>
+  </ul>
+  <ul>
+    <li><a href="#" onclick="toggleDashboard()">Dashboard</a></li>
+    <li><a href="#" onclick="logout()">Logout</a></li>
+    <li><a href="#" role="button">Start</a></li>
+  </ul>
+</nav>
 
-    <div class="input-container">
-        <input type="text" id="user-input" placeholder="Message...">
-        <button id="send-btn">➤</button>
+<!-- MAIN -->
+<main class="container">
+
+  <!-- Background Image -->
+  <div class="bg-layer"></div>
+
+  <!-- AUTH SCREEN -->
+  <section id="auth">
+    <h2>Welcome to Your AI Chatbot</h2>
+
+    <button onclick="googleLogin()">Login with Google</button>
+
+    <p>or</p>
+
+    <input type="text" id="name" placeholder="Name">
+    <input type="email" id="email" placeholder="Email">
+
+    <input type="password" id="password" placeholder="Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+
+    <button onclick="signup()">Sign Up</button>
+    <button onclick="login()">Log In</button>
+
+    <p id="authMsg"></p>
+  </section>
+
+  <!-- ONBOARDING -->
+  <section id="onboarding" class="hidden">
+    <h2>Name your AI</h2>
+    <input id="aiName" placeholder="AI Name">
+
+    <h3>What should your AI call you?</h3>
+    <input id="userName" placeholder="Your Name">
+
+    <h3>What do you want?</h3>
+    <select id="purpose">
+      <option>Friend</option>
+      <option>Work Assistant</option>
+      <option>Other</option>
+    </select>
+
+    <h3>Dialect / Culture</h3>
+    <input id="dialect" placeholder="e.g. Arabic American, AAVE, NYC slang">
+
+    <h3>Language Variant</h3>
+    <select id="language">
+      <option>English</option>
+      <option>Spanish (Mexican)</option>
+      <option>Spanish (Caribbean)</option>
+      <option>Spanish (Central American)</option>
+      <option>Spanish (Spain)</option>
+    </select>
+
+    <button onclick="finishOnboarding()">Finish</button>
+  </section>
+
+  <!-- CHAT -->
+  <section id="chat" class="hidden">
+    <div id="chatBox"></div>
+
+    <div class="chat-input">
+      <input id="message" placeholder="Type here...">
+      <button onclick="sendMessage()">Send</button>
     </div>
+  </section>
 
-    <script src="script.js"></script>
+</main>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="dashboard hidden">
+  <h3>New Chat</h3>
+  <div id="chatList"></div>
+</div>
+
+<script src="script.js"></script>
 </body>
+</html>
