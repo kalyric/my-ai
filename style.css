@@ -1,68 +1,29 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+const chatArea = document.getElementById("chat-area");
+const userInput = document.getElementById("user-input");
+const sendBtn = document.getElementById("send-btn");
+
+function addMessage(text, sender) {
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+    msg.textContent = text;
+
+    chatArea.appendChild(msg);
+    chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-}
+sendBtn.addEventListener("click", () => {
+    const text = userInput.value;
 
-/* Chat area (messages) */
-#chat-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-}
+    if (text.trim() !== "") {
+        addMessage(text, "user");
+        userInput.value = "";
 
-/* Message bubbles */
-.message {
-    max-width: 60%;
-    padding: 12px 16px;
-    margin: 10px 0;
-    border-radius: 18px;
-    line-height: 1.4;
-}
+        setTimeout(() => {
+            addMessage("okay wait I hear you 😭 tell me more", "bot");
+        }, 500);
+    }
+});
 
-.user {
-    background-color: #007bff;
-    color: white;
-    margin-left: auto;
-}
-
-.bot {
-    background-color: #f1f1f1;
-    color: black;
-    margin-right: auto;
-}
-
-/* Input area at bottom */
-.input-container {
-    display: flex;
-    padding: 15px;
-    border-top: 1px solid #ddd;
-}
-
-/* Text input */
-#user-input {
-    flex: 1;
-    padding: 12px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    outline: none;
-}
-
-/* Send button (arrow style) */
-#send-btn {
-    margin-left: 10px;
-    padding: 12px 16px;
-    border-radius: 50%;
-    border: none;
-    background-color: black;
-    color: white;
-    cursor: pointer;
-}
+userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendBtn.click();
+});
