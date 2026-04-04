@@ -1,7 +1,24 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: "Georgia", serif;
   overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Background image EXACT */
@@ -21,6 +38,21 @@ section {
   margin-top: 100px;
 }
 
+main > section:not(.dashboard):not(.hidden) {
+  animation: sectionIn 0.45s ease;
+}
+
+@keyframes sectionIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Inputs */
 input, select {
   margin: 10px auto;
@@ -35,15 +67,43 @@ button {
   background: #caa6e8;
   border: none;
   padding: 10px 20px;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  background: #b894d9;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+button:active {
+  transform: scale(0.98);
 }
 
 /* Chat */
 #chatBox {
   height: 400px;
   overflow-y: auto;
+  scroll-behavior: smooth;
   background: rgba(255,255,255,0.6);
   border-radius: 15px;
   padding: 15px;
+}
+
+#chatBox .msg {
+  animation: msgIn 0.35s ease;
+  margin: 0.5rem 0;
+  text-align: left;
+}
+
+@keyframes msgIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .chat-input {
@@ -52,18 +112,43 @@ button {
   margin-top: 10px;
 }
 
-/* Dashboard */
+/* Dashboard — slide in (avoid display:none so transform can animate) */
 .dashboard {
   position: fixed;
   right: 0;
   top: 0;
-  width: 250px;
+  width: min(280px, 92vw);
   height: 100%;
   background: #eee;
   padding: 20px;
+  z-index: 100;
+  box-shadow: -8px 0 28px rgba(0, 0, 0, 0.08);
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1), visibility 0.32s;
 }
 
-/* Hidden */
-.hidden {
+.dashboard.hidden {
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Hidden — panels that are not the sliding dashboard */
+.hidden:not(.dashboard) {
   display: none;
+}
+
+/* Verse interstitial */
+#auth.verse-moment {
+  animation: verseFade 0.5s ease;
+}
+
+@keyframes verseFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
